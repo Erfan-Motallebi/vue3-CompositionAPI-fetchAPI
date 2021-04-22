@@ -1,17 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-if="posts.length">
+    <PostList :posts="posts" />
+  </div>
+  <div v-else>
+    <h3>{{ error }}</h3>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import PostList from "./components/PostList.vue";
+import { ref } from "vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    PostList,
+  },
+  setup() {
+    let posts = ref([]);
+    const error = ref(null);
+    const dataFetch = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/posts");
+        if (response.status === 200) {
+          posts.value = await response.json();
+        } else {
+          throw new Error("Failed to fetch data");
+        }
+        // const jsonText = await response.json();
+      } catch (err) {
+        error.value = err.message;
+      }
+    };
+    dataFetch();
+    return { posts, error, dataFetch };
+  },
+};
 </script>
 
 <style>
@@ -22,5 +45,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin: auto;
 }
 </style>
