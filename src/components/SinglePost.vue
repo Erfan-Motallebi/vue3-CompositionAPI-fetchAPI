@@ -1,8 +1,10 @@
 <template>
   <div class="single-post">
-    <h2>{{ post.title }}</h2>
+    <router-link :to="{ name: 'Details', params: { id: post.id } }">
+      <h2>{{ post.title }}</h2>
+    </router-link>
     <p>{{ snippet }} . . . .</p>
-    <p v-for="tag in post.tags" v-bind:key="tag.id">
+    <p v-for="tag in post.tags" v-bind:key="tag">
       {{ tag }}
     </p>
   </div>
