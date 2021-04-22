@@ -9,28 +9,14 @@
 
 <script>
 import PostList from "./components/PostList.vue";
-import { ref } from "vue";
+import getPosts from "./composables/getPosts";
 export default {
   name: "App",
   components: {
     PostList,
   },
   setup() {
-    let posts = ref([]);
-    const error = ref(null);
-    const dataFetch = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/posts");
-        if (response.status === 200) {
-          posts.value = await response.json();
-        } else {
-          throw new Error("Failed to fetch data");
-        }
-        // const jsonText = await response.json();
-      } catch (err) {
-        error.value = err.message;
-      }
-    };
+    const { posts, error, dataFetch } = getPosts();
     dataFetch();
     return { posts, error, dataFetch };
   },
