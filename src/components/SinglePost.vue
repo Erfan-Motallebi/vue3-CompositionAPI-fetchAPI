@@ -4,9 +4,7 @@
       <h2>{{ post.title }}</h2>
     </router-link>
     <p>{{ snippet }} . . . .</p>
-    <p v-for="tag in post.tags" v-bind:key="tag">
-      {{ tag }}
-    </p>
+    <p v-for="tag in post.tags" v-bind:key="tag"># {{ tag }}</p>
   </div>
 </template>
 
@@ -15,6 +13,7 @@ import { computed } from "@vue/runtime-core";
 export default {
   name: "singlepost",
   props: ["post"],
+  components: {},
 
   setup(props) {
     const snippet = computed(() => {
@@ -29,6 +28,8 @@ export default {
 h2 {
   color: red;
   line-height: 3;
+  width: 30%;
+  margin: auto;
 }
 p {
   text-align: center;
@@ -38,5 +39,8 @@ p {
 div > p:nth-of-type(1) ~ p {
   font-family: "Courier New", Courier, monospace;
   color: blue;
+}
+a {
+  text-decoration: none;
 }
 </style>

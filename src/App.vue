@@ -9,7 +9,8 @@
 
 <script>
 import PostList from "./components/PostList.vue";
-import getPosts from "./composables/getPosts";
+import getPosts from "./composables/getPosts"; // composables
+
 export default {
   name: "App",
   components: {
